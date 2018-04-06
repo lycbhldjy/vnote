@@ -91,7 +91,7 @@ rm ./squashfs-root/usr/lib/libnss3.so ./squashfs-root/usr/lib/libnssutil3.so
 
 ./appimagetool-x86_64.AppImage squashfs-root
 
-mv VNote-*.AppImage VNote_x86_64_${version}.AppImage
+mv VNote-*.AppImage VNote-${version}-x86_64.AppImage
 
 cd ..
 
