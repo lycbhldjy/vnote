@@ -1,5 +1,9 @@
 var channelInitialized = false;
 
+var contentDiv = document.getElementById('content-div');
+
+var previewDiv = document.getElementById('preview-div');
+
 var content;
 
 // Current header index in all headers.
@@ -131,7 +135,7 @@ var styleContent = function() {
 };
 
 var htmlContent = function() {
-    content.htmlContentCB("", styleContent(), placeholder.innerHTML);
+    content.htmlContentCB("", styleContent(), contentDiv.innerHTML);
 };
 
 new QWebChannel(qt.webChannelTransport,
@@ -156,6 +160,8 @@ new QWebChannel(qt.webChannelTransport,
 
         content.plantUMLResultReady.connect(handlePlantUMLResult);
         content.graphvizResultReady.connect(handleGraphvizResult);
+
+        content.requestPreviewEnabled.connect(setPreviewEnabled);
 
         if (typeof updateHtml == "function") {
             updateHtml(content.html);
@@ -1267,7 +1273,7 @@ function getNodeText(el) {
 }
 
 var calculateWordCount = function() {
-    var words = getNodeText(placeholder);
+    var words = getNodeText(contentDiv);
 
     // Char without spaces.
     var cns = 0;
@@ -1348,4 +1354,14 @@ var handleGraphvizResult = function(id, format, result) {
     }
 
     finishOneAsyncJob();
+};
+
+var setPreviewEnabled = function(enabled) {
+    if (enabled) {
+        contentDiv.style.display = 'none';
+        previewDiv.style.display = 'block';
+    } else {
+        contentDiv.style.display = 'block';
+        previewDiv.style.display = 'none';
+    }
 };

@@ -1,4 +1,3 @@
-var placeholder = document.getElementById('placeholder');
 var renderer = new marked.Renderer();
 var toc = []; // Table of contents as a list
 var nameCounter = 0;
@@ -54,7 +53,7 @@ var updateText = function(text) {
 
     var needToc = mdHasTocSection(text);
     var html = markdownToHtml(text, needToc);
-    placeholder.innerHTML = html;
+    contentDiv.innerHTML = html;
     handleToc(needToc);
     insertImageCaption();
     renderMermaid('lang-mermaid');
@@ -68,7 +67,7 @@ var updateText = function(text) {
     // finishLoading logic.
     if (VEnableMathjax) {
         try {
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub, placeholder, postProcessMathJax]);
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, contentDiv, postProcessMathJax]);
         } catch (err) {
             content.setLog("err: " + err);
             finishLogics();

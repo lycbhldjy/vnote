@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QPointer>
+#include <QSharedPointer>
 #include "vedittab.h"
 #include "vconstants.h"
 #include "vmarkdownconverter.h"
@@ -91,6 +92,9 @@ public:
     // Fetch tab stat info.
     VWordCountInfo fetchWordCountInfo(bool p_editMode) const Q_DECL_OVERRIDE;
 
+    // Toggle live preview in edit mode.
+    void toggleLivePreview() Q_DECL_OVERRIDE;
+
 public slots:
     // Enter edit mode.
     void editFile() Q_DECL_OVERRIDE;
@@ -145,7 +149,12 @@ private slots:
 private:
     enum TabReady { None = 0, ReadMode = 0x1, EditMode = 0x2 };
 
-    enum Mode { Read = 0, Edit, EditPreview };
+    enum Mode { InvalidMode = 0, Read, Edit, EditPreview };
+
+    struct WebViewState
+    {
+        qreal m_zoomFactor;
+    };
 
     // Setup UI.
     void setupUI();
@@ -238,6 +247,9 @@ private:
     VVim::SearchItem m_lastSearchItem;
 
     Mode m_mode;
+
+    QSharedPointer<WebViewState> m_readWebViewState;
+    QSharedPointer<WebViewState> m_previewWebViewState;
 };
 
 inline VMdEditor *VMdTab::getEditor()

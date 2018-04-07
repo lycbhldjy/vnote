@@ -47,6 +47,9 @@ public:
 
     const VWordCountInfo &getWordCountInfo() const;
 
+    // Whether change to preview mode.
+    void setPreviewEnabled(bool p_enabled);
+
 public slots:
     // Will be called in the HTML side
 
@@ -129,6 +132,8 @@ signals:
     void plantUMLResultReady(int p_id, const QString &p_format, const QString &p_result);
 
     void graphvizResultReady(int p_id, const QString &p_format, const QString &p_result);
+
+    void requestPreviewEnabled(bool p_enabled);
 
 private:
     QString m_toc;

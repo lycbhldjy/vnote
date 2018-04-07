@@ -160,3 +160,8 @@ void VDocument::processGraphviz(int p_id, const QString &p_format, const QString
 
     m_graphvizHelper->processAsync(p_id, p_format, p_text);
 }
+
+void VDocument::setPreviewEnabled(bool p_enabled)
+{
+    emit requestPreviewEnabled(p_enabled);
+}

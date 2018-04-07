@@ -38,7 +38,8 @@ VMdEditor::VMdEditor(VFile *p_file,
       m_mdHighlighter(NULL),
       m_freshEdit(true),
       m_textToHtmlDialog(NULL),
-      m_zoomDelta(0)
+      m_zoomDelta(0),
+      m_editTab(NULL)
 {
     Q_ASSERT(p_file->getDocType() == DocType::Markdown);
 
@@ -276,10 +277,7 @@ void VMdEditor::contextMenuEvent(QContextMenuEvent *p_event)
 {
     QScopedPointer<QMenu> menu(createStandardContextMenu());
     menu->setToolTipsVisible(true);
-
-    VEditTab *editTab = dynamic_cast<VEditTab *>(parent());
-    Q_ASSERT(editTab);
-    if (editTab->isEditMode()) {
+    if (m_editTab && m_editTab->isEditMode()) {
         const QList<QAction *> actions = menu->actions();
 
         if (textCursor().hasSelection()) {
@@ -1321,4 +1319,9 @@ VWordCountInfo VMdEditor::fetchWordCountInfo() const
     info.m_charWithoutSpacesCount = cns;
     info.m_charWithSpacesCount = cc;
     return info;
+}
+
+void VMdEditor::setEditTab(VEditTab *p_editTab)
+{
+    m_editTab = p_editTab;
 }
