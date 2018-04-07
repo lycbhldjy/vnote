@@ -14,7 +14,7 @@ matrix:
 
 branches:
   only:
-    - master
+    - fix-macos
 
 before_install:
 - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
@@ -58,4 +58,4 @@ deploy:
     dry-run: false
     on:
       condition: $TRAVIS_OS_NAME = osx
-      branch: master
+      branch: fix-macos

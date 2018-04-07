@@ -2,7 +2,13 @@
 project_dir=$(pwd)
 
 brew update > /dev/null
+
+echo $(brew --prefix)
+
+cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
+git checkout 13d52537d1e0e5f913de4639012 qt.rb
 brew install qt
+
 QTDIR="/usr/local/opt/qt"
 PATH="$QTDIR/bin:$PATH"
 LDFLAGS=-L$QTDIR/lib
