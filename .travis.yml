@@ -14,7 +14,7 @@ matrix:
 
 branches:
   only:
-    - master
+    - fix-linux
 
 before_install:
 - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
@@ -48,7 +48,7 @@ deploy:
     dry-run: false
     on:
       condition: $TRAVIS_OS_NAME = linux
-      branch: master
+      branch: fix-linux
   - provider: bintray
     skip_cleanup: true
     file: "./.macos_bintray.json"
